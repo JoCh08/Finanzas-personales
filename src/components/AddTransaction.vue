@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue'
-import { getDatabase, ref as dbRef, push } from "firebase/database";
-import { auth } from '../firebase.js'
+import { ref , onMounted} from 'vue'
+import { getDatabase, ref as dbRef, push,onValue } from "firebase/database";
+import { auth  } from '../firebase.js'
 
 const type = ref('ingresos')
 const amount = ref(0)
@@ -25,6 +25,21 @@ const addTransaction = async () => {
         alert('Debes ingresar una cantidad valida')
     }
 }
+
+const transactions = ref([])
+
+ onMounted(() => {
+    const user = auth.currentUser
+    if (user) {
+        const transactionsRef = dbRef(getDatabase(), `transactions/${user.uid}`);
+        onValue(transactionsRef, (snapshot) => {
+            const data = snapshot.val();
+            transactions.value = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+        });
+    }
+}); 
+
+
 </script>
 
 <template>
@@ -43,6 +58,16 @@ const addTransaction = async () => {
 </div>
 <button type="submit">Agregar transacción</button>
 </form>
+
+<div v-if="transactions.length > 0" class="vintage-container">
+    <h2>Últimas 3 transacciones</h2>
+    <ul>
+        <li v-for="transaction in transactions.slice(-3)" :key="transaction.id" class="vintage-item">
+            {{ transaction.date }} - {{ transaction.type }}: ${{ transaction.amount }}
+        </li>
+    </ul>
+</div>
+
 </template>
 
 <style scoped>
@@ -95,5 +120,25 @@ button {
 
 button:hover {
     background-color: #1e3a52;
+}
+
+.vintage-container {
+    background-color: #fdf5e6;
+    border: 1px solid #d4af37;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 20px auto;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.vintage-item {
+    background-color: #fff8dc;
+    border: 1px solid #d4af37;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 </style>
