@@ -27,11 +27,18 @@ const logout = async () => {
     </nav>
   </header>
   <main>
-    <RouterView />
+    
+
+      <RouterView />
+
+  
+
   </main>
+
 </template>
 
 <style scoped>
+
 nav {
   margin: 4rem;
   text-align: center;
@@ -72,9 +79,11 @@ button:hover {
 }
 
 main {
-  text-align: center;
-  margin-top: 3rem;
+ 
+
   font-family: 'Courier New', Courier, monospace; /* Vintage font */
-  color: #2a9d8f; /* Jade blue color */
+  color: #96f8a4; /* Jade blue color */
 }
+
+
 </style>

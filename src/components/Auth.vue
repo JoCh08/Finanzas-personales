@@ -1,18 +1,17 @@
 <script setup>
     import {ref} from 'vue'
     import{auth} from '../firebase.js'
-  import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from 'firebase/auth';
+  //import { createUserWithEmailAndPassword,signInWithEmailAndPassword } from 'firebase/auth';
     import { useRouter } from 'vue-router'
     
-    
-    //import { useAuth } from '@/composables/useAuth.js'
+    import { useAuth } from '@/composables/useAuth.js'
    const isLogin = ref(true)
    const email = ref('')
    const password = ref('')
     const username = ref('')
     const router = useRouter()
 
-    //const { login, register, signInWithGoogle} = useAuth()
+    const { login, register, signInWithGoogle} = useAuth()
     
     const toggleAuth = () => {
         isLogin.value = !isLogin.value
@@ -20,11 +19,11 @@
    const handleSubmit = async () => {
         try {
             if(isLogin.value){
-                await signInWithEmailAndPassword(auth, email.value, password.value)
-              // await login( email.value, password.value)
+                //await signInWithEmailAndPassword(auth, email.value, password.value)
+              await login( email.value, password.value)
             } else {
-                //await register( email.value, password.value, username.value)
-                await createUserWithEmailAndPassword(auth, email.value, password.value)
+                await register( email.value, password.value, username.value)
+               // await createUserWithEmailAndPassword(auth, email.value, password.value)
             }
             router.push('/')
         } catch (error) {
@@ -44,9 +43,11 @@
             <div class="aunth-container2">
 
                 <div class="auth-container-form">
+
                 <h1>{{ isLogin ? "Iniciar Sesión" : "Registro" }}</h1>
 
                 <form @submit.prevent="handleSubmit" class="auth-form">
+
                     <div class="inputs">
                         <div v-if="!isLogin">
                             <label for="username">Nombre de Usuario</label>
@@ -63,7 +64,7 @@
                             <input id="password" v-model="password" type="password" required placeholder="Ingresa tu contraseña">
                         </div>
 
-                        <button type="button" class="google-button" @click="signInWithGoogle">
+                        <button type="button" class="google-button"  @click="signInWithGoogle" >
                             Iniciar sesión con Google
                         </button>
                     </div>
@@ -93,30 +94,49 @@
 .aunth-container{
     display: flex;
     flex-direction: column;
+    background-color: #005e30;
+    height: 100vh;
     justify-content: center;
-    align-items: center;
-    min-height: 100%;
-
 }
 @media (min-width: 768px ) {
     .aunth-container{
         flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        justify-content:space-between;
+
+       
     }
+    
+}
+.aunth-container1{
+
+background-color: #fa5f4a;
+}
+
+
+@media (min-width: 768px ) {
     .aunth-container1{
-        width: 70vh;
+        width: 10rem;
+        
+        background-color: #c23321;
         
     }
+  
+}
+
+.aunth-container2{
+background-color: #bbb;
+
+}
+
+
+@media (min-width: 768px ) {
     .aunth-container2{
         max-height: 100vh;
         display: flex;
-        background-color: aqua;
+        background-color: rgb(255, 0, 212);
         align-items: start;
         justify-content: end;
     }
-    
 }
 .auth-container-form {
     max-width: 400px;
@@ -127,6 +147,18 @@
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     color: #f2f2f2; /* Texto claro para contrastar con fondo oscuro */
+}
+@media (min-width: 768px ) {
+    .auth-container-form{
+        min-height: 50vh;
+        width: 50vh;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
 }
 
 .auth-form {
@@ -142,13 +174,19 @@
     flex-direction: column;
     gap: 1.5rem;
     width: 100%;
+    
 }
+
+
+    
+
 
 label {
     text-align: left;
     font-weight: 500;
     color: #f2f2f2;
     margin-bottom: 0.5rem;
+    font-size: 2.4rem;
 }
 
 input {
@@ -163,6 +201,14 @@ input {
     transition: border-color 0.3s ease;
 }
 
+@media (min-width: 768px ) {
+    input{
+        width: 100%;
+        min-height: 4rem;
+        font-size: 1.8rem;
+    }
+    
+}
 input::placeholder {
     color: #bbb; /* Placeholder en color suave */
 }
@@ -185,7 +231,7 @@ input:focus {
 }
 
 .google-button:hover {
-    background-color: #c23321;
+    background-color: #8e1302;
 }
 
 .submit-button {
@@ -202,14 +248,15 @@ input:focus {
 }
 
 .submit-button:hover {
-    background-color: #379a6a;
+    background-color: #05723d;
 }
 
 .toggle-auth {
     margin-top: 1rem;
-    color: #42b983;
+    color: #5cf34b;
     cursor: pointer;
-    font-size: 0.9rem;
+   font-weight: 700;
+    font-size: 1.3rem;
     text-decoration: underline;
     transition: color 0.3s ease;
 }

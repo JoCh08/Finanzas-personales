@@ -19,7 +19,9 @@ const addTransaction = async () => {
         userId: user.uid
     }
     await push(transactionsRef, newTransaction)
-    alert('Transacción añadida')
+     
+     alert('Transacción agregada')
+    
     amount.value = null
     } else {
         alert('Debes ingresar una cantidad valida')
