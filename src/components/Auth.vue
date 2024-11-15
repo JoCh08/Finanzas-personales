@@ -5,17 +5,21 @@
     import { useRouter } from 'vue-router'
     
     import { useAuth } from '@/composables/useAuth.js'
-   const isLogin = ref(true)
-   const email = ref('')
-   const password = ref('')
-    const username = ref('')
-    const router = useRouter()
+   
+    import AuthAnimacion from './AuthAnimacion.vue'
+    
+   const isLogin = ref(true);
+   const email = ref('');
+   const password = ref('');
+    const username = ref('');
+    const router = useRouter();
 
-    const { login, register, signInWithGoogle} = useAuth()
+    const { login, register, signInWithGoogle} = useAuth();
     
     const toggleAuth = () => {
         isLogin.value = !isLogin.value
     }
+
    const handleSubmit = async () => {
         try {
             if(isLogin.value){
@@ -34,7 +38,11 @@
 </script>
 <template>
     <div class="auth-container">
-      <div class="auth-container1">animacion</div>
+      <div class="auth-container1">
+
+        <AuthAnimacion/>
+
+      </div>
   
       <div class="auth-container2">
         <div class="auth-container-form">
@@ -80,11 +88,16 @@
   @media (min-width: 768px) {
     .auth-container {
       flex-direction: row;
-      justify-content: space-between;
+    
     }
   }
   
   .auth-container1 {
+     display: flex;
+     flex-direction: column;
+     align-items: space-between;
+     justify-content: center;
+    MIN-width: 70%;
     background-color: #d3bfa7;
     padding: 2rem;
     color: #4a4031;

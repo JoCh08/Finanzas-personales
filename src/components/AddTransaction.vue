@@ -57,14 +57,25 @@ const getGastos = () => {
             amount: transaction.amount
         }));
 };
+const getBalance = () => {
+  const totalIngresos = transactions.value
+    .filter(transaction => transaction.type === 'ingresos')
+    .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+  const totalGastos = transactions.value
+    .filter(transaction => transaction.type === 'gasto')
+    .reduce((sum, transaction) => sum + transaction.amount, 0);
+
+  return `${totalIngresos}  - ${totalGastos} = ${totalIngresos - totalGastos}`;
+};
 
 </script>
 
 <template>
-    <h1 class="vintage-title">Añadir transacción</h1>
+ 
     <div class="contenido-addtrans">
 
-
+      <h1 class="vintage-title">Añadir transacción</h1>
 
         <form @submit.prevent="addTransaction" class="vintage-form">
       <div class="vintage-form-group">
@@ -92,6 +103,8 @@ const getGastos = () => {
           {{ transaction.date }} - {{ transaction.type }}: ${{ transaction.amount }}
         </li>
       </ul>
+      <h2> Estado de tus finanzas </h2>
+      <p>{{ getBalance() }}</p>
     </div>
 
 
@@ -151,10 +164,12 @@ const getGastos = () => {
   
   /* Títulos */
   .vintage-title {
-    color: #76b39d; /* Azul jade */
+    color: #cbf5e6; /* Azul jade */
     text-align: center;
     font-size: 2.5em;
     margin-bottom: 30px;
+    font-style: bold;
+    font-family: Arial, Helvetica, sans-serif;
   }
   
   .vintage-subtitle {
