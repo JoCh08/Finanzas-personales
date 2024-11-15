@@ -32,237 +32,191 @@
     }
 
 </script>
-
 <template>
-    <div class="aunth-container"> 
-            <div class="aunth-container1">
-                <!-- animacion  -->
-                animacion
-            </div><!-- cont1 -->
+    <div class="auth-container">
+      <div class="auth-container1">animacion</div>
+  
+      <div class="auth-container2">
+        <div class="auth-container-form">
+          <h1>{{ isLogin ? "Iniciar Sesión" : "Registro" }}</h1>
+          <form @submit.prevent="handleSubmit" class="auth-form">
+            <div class="inputs">
+              <div v-if="!isLogin">
+                <label for="username">Nombre de Usuario</label>
+                <input id="username" v-model="username" type="text" required placeholder="Ingresa tu nombre de usuario">
+              </div>
+              <div>
+                <label for="email">Correo Electrónico</label>
+                <input id="email" v-model="email" type="email" required placeholder="Ingresa tu correo electrónico">
+              </div>
+              <div>
+                <label for="password">Contraseña</label>
+                <input id="password" v-model="password" type="password" required placeholder="Ingresa tu contraseña">
+              </div>
+              <button type="submit" class="submit-button">{{ isLogin ? "Iniciar Sesión" : "Registrarse" }}</button>
+              <button type="button" class="google-button" @click="signInWithGoogle">Iniciar sesión con Google</button>
 
-            <div class="aunth-container2">
+            </div>
 
-                <div class="auth-container-form">
+         
 
-                <h1>{{ isLogin ? "Iniciar Sesión" : "Registro" }}</h1>
-
-                <form @submit.prevent="handleSubmit" class="auth-form">
-
-                    <div class="inputs">
-                        <div v-if="!isLogin">
-                            <label for="username">Nombre de Usuario</label>
-                            <input id="username" v-model="username" type="text" required placeholder="Ingresa tu nombre de usuario">
-                        </div>
-
-                        <div>
-                            <label for="email">Correo Electrónico</label>
-                            <input id="email" v-model="email" type="email" required placeholder="Ingresa tu correo electrónico">
-                        </div>
-
-                        <div>
-                            <label for="password">Contraseña</label>
-                            <input id="password" v-model="password" type="password" required placeholder="Ingresa tu contraseña">
-                        </div>
-
-                        <button type="button" class="google-button"  @click="signInWithGoogle" >
-                            Iniciar sesión con Google
-                        </button>
-                    </div>
-
-                    <button type="submit" class="submit-button">
-                        {{ isLogin ? "Iniciar Sesión" : "Registrarse" }}
-                    </button>
-                </form>
-                
-                <p class="toggle-auth" @click="toggleAuth">
-                    {{ isLogin ? "¿Aún no tienes una cuenta? Regístrate" : "¿Ya tienes una cuenta? Inicia sesión" }}
-                </p>
-            </div><!--  cont form -->
-
-            </div><!-- cont 2 -->
-
-
-
+          </form>
+          <p class="toggle-auth" @click="toggleAuth">{{ isLogin ? "¿Aún no tienes una cuenta? Regístrate" : "¿Ya tienes una cuenta? Inicia sesión" }}</p>
+        </div>
+      </div>
     </div>
-   
-    
-    
-    
-</template>
+  </template>
+  
+  <style scoped>
 
-<style scoped>
-.aunth-container{
+  .auth-container {
     display: flex;
     flex-direction: column;
-    background-color: #005e30;
     height: 100vh;
     justify-content: center;
-}
-@media (min-width: 768px ) {
-    .aunth-container{
-        flex-direction: row;
-        justify-content:space-between;
-
-       
-    }
-    
-}
-.aunth-container1{
-
-background-color: #fa5f4a;
-}
-
-
-@media (min-width: 768px ) {
-    .aunth-container1{
-        width: 10rem;
-        
-        background-color: #c23321;
-        
-    }
+    background-color: #f4f1ea;
+  }
   
-}
-
-.aunth-container2{
-background-color: #bbb;
-
-}
-
-
-@media (min-width: 768px ) {
-    .aunth-container2{
-        max-height: 100vh;
-        display: flex;
-        background-color: rgb(255, 0, 212);
-        align-items: start;
-        justify-content: end;
+  @media (min-width: 768px) {
+    .auth-container {
+      flex-direction: row;
+      justify-content: space-between;
     }
-}
-.auth-container-form {
-    max-width: 400px;
+  }
+  
+  .auth-container1 {
+    background-color: #d3bfa7;
+    padding: 2rem;
+    color: #4a4031;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  
+  @media (min-width: 768px) {
+    .auth-container1 {
+      width: 10rem;
+    }
+  }
+  
+  .auth-container2 {
+    background-color: #ece5d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+  }
+  
+  .auth-container-form {
+    max-width: 100rem;
     margin: auto;
     text-align: center;
     padding: 2rem;
-    background-color: #757474; /* Fondo oscuro */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    color: #f2f2f2; /* Texto claro para contrastar con fondo oscuro */
-}
-@media (min-width: 768px ) {
-    .auth-container-form{
-        min-height: 50vh;
-        width: 50vh;
-        margin-left: 2rem;
-        margin-right: 2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-}
-
-.auth-form {
+    background-color: #507b71; /* Azul jade suave */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: #f4f1ea; /* Texto en color claro */
+    margin: 0  2.5rem 0 2.5rem; 
+  }
+  
+  .auth-form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     width: 100%;
-}
-
-.inputs {
+  }
+  
+  .inputs {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
     width: 100%;
-    
-}
-
-
-    
-
-
-label {
+  }
+  
+  label {
     text-align: left;
-    font-weight: 500;
-    color: #f2f2f2;
+    font-weight: 600;
+    color: #f4f1ea;
     margin-bottom: 0.5rem;
-    font-size: 2.4rem;
-}
-
-input {
+    font-size: 1.5rem;
+  }
+  
+  input {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #555; /* Bordes sutiles para el fondo oscuro */
-    border-radius: 4px;
-    font-size: 1rem;
-    background-color: #333; /* Fondo del input oscuro */
-    color: #f2f2f2; /* Texto claro */
+    border: 1px solid #b0a896; /* Color borde tenue */
+    border-radius: 6px;
+    font-size: 1.5rem;
+    background-color: #f7f5e6; /* Fondo suave */
+    color: #4a4031; /* Texto oscuro */
     outline: none;
     transition: border-color 0.3s ease;
-}
-
-@media (min-width: 768px ) {
-    input{
-        width: 100%;
-        min-height: 4rem;
-        font-size: 1.8rem;
-    }
-    
-}
-input::placeholder {
-    color: #bbb; /* Placeholder en color suave */
-}
-
-input:focus {
-    border-color: #42b983; /* Color de foco */
-}
-
-.google-button {
+  }
+  
+  input::placeholder {
+    color: #a59f88; /* Placeholder vintage */
+  }
+  
+  input:focus {
+    border-color: #b88b4a; /* Color de foco vintage */
+  }
+  
+  .google-button {
     width: 100%;
     padding: 0.8rem;
     margin-top: 1rem;
-    background-color: #db4437;
-    color: #fff;
+    background-color: #b88b4a; /* Café vintage */
+    color: #f4f1ea;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.2rem;
     transition: background-color 0.3s ease;
-}
-
-.google-button:hover {
-    background-color: #8e1302;
-}
-
-.submit-button {
-    width: 100%;
-    padding: 0.8rem;
-    margin-top: 1.5rem;
-    background-color: #42b983;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
+  }
+  
+  .google-button:hover {
+    background-color: #8c6336;
+  }
+  
+  .submit-button {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 1.5rem;
+  background-color: #008080; /* Turquesa vibrante */
+  color: #ffffff; /* Blanco para texto */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold; /* Para destacar más */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Sombra para profundidad */
+  transition: all 0.3s ease;
 }
 
 .submit-button:hover {
-    background-color: #05723d;
+  background-color: #00bfbf; /* Turquesa más claro */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5); /* Incrementa sombra al pasar el mouse */
+  transform: scale(1.05); /* Efecto de agrandamiento */
 }
 
-.toggle-auth {
+.submit-button:active {
+  background-color: #006666; /* Turquesa más oscuro al hacer clic */
+  transform: scale(0.98); /* Simula presión */
+}
+  
+  .toggle-auth {
     margin-top: 1rem;
-    color: #5cf34b;
+    color: #d3bfa7;
     cursor: pointer;
-   font-weight: 700;
-    font-size: 1.3rem;
+    font-weight: 700;
+    font-size: 1.8rem;
     text-decoration: underline;
     transition: color 0.3s ease;
-}
-
-.toggle-auth:hover {
-    color: #379a6a;
-}
-</style>
-
+  }
+  
+  .toggle-auth:hover {
+    color: #b88b4a;
+  }
+  </style>
+  

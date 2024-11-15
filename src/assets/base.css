@@ -72,8 +72,9 @@ body {
 
   color: var(--color-text);
   background: var(--color-background);
-  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-  background: linear-gradient(135deg,  #0d5fd2  0%, #8ec5fc 50%,#00a86b 100%);
+
+  background: linear-gradient(135deg, #4a7c99 0%, #a78b71 50%, #d9c9b6 100%);
+
   transition:
     color 0.5s,
     background-color 0.5s;
