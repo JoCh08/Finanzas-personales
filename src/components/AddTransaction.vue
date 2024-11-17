@@ -94,9 +94,9 @@ const getBalance = () => {
   
    
   
-    <div class="transactions-section">
+    <div class="transactions-section" v-if="transactions.length > 0" >
 
-        <div v-if="transactions.length > 0" class="vintage-container">
+        <div class="vintage-container">
       <h2>Últimas 3 transacciones</h2>
       <ul class="vintage-list">
         <li v-for="transaction in transactions.slice(-3)" :key="transaction.id" class="vintage-item">
