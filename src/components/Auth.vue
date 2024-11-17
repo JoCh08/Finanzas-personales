@@ -125,7 +125,8 @@
     margin: auto;
     text-align: center;
     padding: 2rem;
-    background-color: #507b71; /* Azul jade suave */
+    background-color: rgba(80, 123, 113, 0.6);
+ /* Azul jade suave */
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     color: #f4f1ea; /* Texto en color claro */

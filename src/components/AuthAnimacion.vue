@@ -177,11 +177,14 @@ export default {
 
 .animacion-graficos {
     display: none;
+
   
 }
 @media (min-width: 768px ) {
     .animacion-graficos {
         display: block;
+        
+    background: linear-gradient(to right, #d7ccc8, #ffe0b2);
        
     }
 }
